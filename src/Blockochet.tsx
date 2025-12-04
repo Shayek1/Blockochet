@@ -15,14 +15,23 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             color: "white",
             x: canvas.height / 2,
             y: canvas.width / 2,
-            radius: 10
-        }
+            radius: 10,
+
+            //speeds
+            dx: 2, //horizontal
+            dy: 2 //vertical
+        };
 
         let animationFrameId: number;
 
         const loop = () => {
             ccontext.clearRect(0, 0, canvas.width, canvas.height);
 
+            //updating ball positions
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            //drawing the ball
             ccontext.fillStyle = ball.color; //will fill the ball as white
             ccontext.beginPath(); //starts the new shape
             ccontext.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2); //draws the circle
