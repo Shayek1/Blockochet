@@ -24,9 +24,13 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ccontext.clearRect(0, 0, canvas.width, canvas.height);
 
             ccontext.fillStyle = ball.color; //will fill the ball as white
-            ccontext.beginPath();
-            ccontext.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-            ccontext.fill();
+            ccontext.beginPath(); //starts the new shape
+            ccontext.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2); //draws the circle
+            ccontext.fill(); //renders the filled shape
+
+            //drawing the border
+            ccontext.strokeStyle = "black";
+            ccontext.lineWidth = 2;
 
             animationFrameId = requestAnimationFrame(loop);
         };
