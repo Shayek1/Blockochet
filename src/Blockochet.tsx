@@ -31,6 +31,17 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ball.x += ball.dx;
             ball.y += ball.dy;
 
+            //wall collision
+            //Horizontal
+            if (ball.x-ball.radius < 0 || ball.x + ball.radius > canvas.width){
+                ball.dx *= -1;
+            }
+
+            //Vertical - only collision on the ceiling as the balls  bottom
+            if (ball.y - ball.radius < 0){
+                ball.dy *= -1;
+            }
+
             //drawing the ball
             ccontext.fillStyle = ball.color; //will fill the ball as white
             ccontext.beginPath(); //starts the new shape
