@@ -145,7 +145,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         []);
 
     return(
-        <div style={{position: "center"}}>
+        <div style={{position: "relative"}}>
         <canvas ref={canvasReference} height={600} width={600}/>
 
             <div style={{
