@@ -13,6 +13,35 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         color: "purple"
     });
 
+    const paddleSpeed = 6;
+
+    //will keep record of what button is pressed
+    const controls = useRef({
+        left: false,
+        right: false
+    });
+
+    //key listeners
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "ArrowLeft") controls.current.left = true;
+            if (e.key === "ArrowRight") controls.current.right = true;
+        };
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.key === "ArrowLeft") controls.current.left = false;
+            if(e.key === "ArrowRight") controls.current.right = false;
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
+
+        return() => {
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
+        }
+    }, []);
+
+    //the game loop
     useEffect(() => {
         const canvas = canvasReference.current;
         if(!canvas) return;
@@ -69,6 +98,24 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ccontext.strokeStyle = "black";
             ccontext.lineWidth = 2;
             ccontext.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height)
+
+
+            //PADDLE
+            //movement
+            if (controls.current.left){
+                paddle.x -= paddleSpeed
+            }
+
+            if (controls.current.right){
+                paddle.x += paddleSpeed
+            }
+
+            //keeping the paddle within the canvas
+            if (paddle.x < 0) paddle.x = 0;
+            if (paddle.x + paddle.width > canvas.width){
+                paddle.x = canvas.width - paddle.width
+            }
+
 
             animationFrameId = requestAnimationFrame(loop);
         };
