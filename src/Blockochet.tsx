@@ -154,7 +154,8 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                 left: "50%",
                 transform: "translateX(-50%)",
                 display: "flex",
-                gap: "20px"
+                gap: "20px",
+                touchAction: "none"
             }}>
                 <button
                     style={{
