@@ -57,8 +57,8 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             radius: 10,
 
             //speeds
-            dx: 2, //horizontal
-            dy: 2 //vertical
+            dx: 3, //horizontal
+            dy: 3 //vertical
         };
 
         let animationFrameId: number;
@@ -145,7 +145,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         []);
 
     return(
-        <div style={{position: "relative"}}>
+        <div style={{position: "center"}}>
         <canvas ref={canvasReference} height={600} width={600}/>
 
             <div style={{
