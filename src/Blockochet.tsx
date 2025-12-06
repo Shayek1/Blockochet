@@ -13,7 +13,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         color: "purple"
     });
 
-    const paddleSpeed = 6;
+    const paddleSpeed = 10;
 
     //will keep record of what button is pressed
     const controls = useRef({
@@ -95,6 +95,23 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             //top wall - only collision on the ceiling as the balls  bottom
             if (ball.y - ball.radius < 0){
                 ball.dy *= -1;
+            }
+
+            //PADDLE COLLISION
+            const ballBottom = ball.y + ball.radius;
+            const paddleTop = paddle.y;
+
+            //checking for collision
+            if (ballBottom >= paddleTop){
+                if (
+                    ball.x + ball.radius >= paddle.x &&
+                    ball.x - ball.radius <= paddle.x + paddle.width
+                ){
+                    ball.dy = -Math.abs(ball.dy);
+
+                    const hitPoint = ball.x - (paddle.x + paddle.width / 2);
+                    ball.dx = hitPoint * 0.05;
+                }
             }
 
             //drawing the ball
