@@ -145,6 +145,47 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         []);
 
     return(
+        <div style={{position: "relative"}}>
         <canvas ref={canvasReference} height={600} width={600}/>
+
+            <div style={{
+                position: "absolute",
+                bottom: "20px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                display: "flex",
+                gap: "20px"
+            }}>
+                <button
+                    style={{
+                        width: "80px",
+                        height: "80px",
+                        fontSize: "32px"
+                    }}
+                    onTouchStart={() => (controls.current.left = true)}
+                    onTouchEnd={() => (controls.current.left = false)}
+                    onMouseDown={() => (controls.current.left = true)}
+                    onMouseUp={() => (controls.current.left = false)}
+                >
+                    ⬅
+                </button>
+
+                <button
+                    style={{
+                        width: "80px",
+                        height: "80px",
+                        fontSize: "32px"
+                    }}
+                    onTouchStart={() => (controls.current.right = true)}
+                    onTouchEnd={() => (controls.current.right = false)}
+                    onMouseDown={() => (controls.current.right = true)}
+                    onMouseUp={() => (controls.current.right = false)}
+                >
+                    ➡
+                </button>
+            </div>
+
+
+        </div>
     );
 }
