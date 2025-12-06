@@ -1,7 +1,17 @@
-import {useRef, useEffect} from "react";
+import {useRef, useEffect, useState} from "react";
 
 export default function Blockochet() {
 const canvasReference = useRef<HTMLCanvasElement | null>(null)
+
+
+    //creating the paddle
+    const [paddle, setPaddle] = useState({
+        height: 20,
+        width: 100,
+        x: 150,
+        y:450,
+        color: "purple"
+    });
 
     useEffect(() => {
         const canvas = canvasReference.current;
@@ -52,6 +62,14 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ccontext.strokeStyle = "black";
             ccontext.lineWidth = 2;
 
+            //drawing the paddle
+            ccontext.fillStyle = paddle.color;
+            ccontext.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+
+            ccontext.strokeStyle = "black";
+            ccontext.lineWidth = 2;
+            ccontext.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height)
+
             animationFrameId = requestAnimationFrame(loop);
         };
 
@@ -61,6 +79,6 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         []);
 
     return(
-        <canvas ref={canvasReference} height={400} width={600}/>
+        <canvas ref={canvasReference} height={600} width={600}/>
     );
 }
