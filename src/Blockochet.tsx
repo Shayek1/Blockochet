@@ -70,6 +70,22 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ball.x += ball.dx;
             ball.y += ball.dy;
 
+            //PADDLE
+            //movement
+            if (controls.current.left){
+                paddle.x -= paddleSpeed
+            }
+
+            if (controls.current.right){
+                paddle.x += paddleSpeed
+            }
+
+            //keeping the paddle within the canvas
+            if (paddle.x < 0) paddle.x = 0;
+            if (paddle.x + paddle.width > canvas.width){
+                paddle.x = canvas.width - paddle.width
+            }
+
             //wall collision
             //Left and right walls
             if (ball.x-ball.radius < 0 || ball.x + ball.radius > canvas.width){
@@ -100,21 +116,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ccontext.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height)
 
 
-            //PADDLE
-            //movement
-            if (controls.current.left){
-                paddle.x -= paddleSpeed
-            }
 
-            if (controls.current.right){
-                paddle.x += paddleSpeed
-            }
-
-            //keeping the paddle within the canvas
-            if (paddle.x < 0) paddle.x = 0;
-            if (paddle.x + paddle.width > canvas.width){
-                paddle.x = canvas.width - paddle.width
-            }
 
 
             animationFrameId = requestAnimationFrame(loop);
