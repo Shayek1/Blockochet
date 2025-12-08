@@ -1,4 +1,14 @@
 import {useRef, useEffect, useState} from "react";
+/* import {brickHeight,
+    brickWidth,
+    brickOffsetLeft,
+    brickOffsetTop,
+    brickPadding,
+    brickRows,
+    brickCols
+} from "./game/brickConfig.ts"; */
+import {brickCreation} from "./game/brickCreation.ts";
+
 
 export default function Blockochet() {
 const canvasReference = useRef<HTMLCanvasElement | null>(null)
@@ -20,6 +30,9 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         left: false,
         right: false
     });
+
+    const bricksRef = useRef(brickCreation());
+    const bricks = bricksRef.current;
 
     //key listeners
     useEffect(() => {
@@ -132,6 +145,21 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ccontext.lineWidth = 2;
             ccontext.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height)
 
+            //drawing the bricks
+            for (let row = 0; row < bricks.length; row++){
+                for(let col =0; col < bricks[row].length; col++){
+                    const brick = bricks[row][col];
+
+                    if(brick.status === 1){
+                        ccontext.fillStyle = "red";
+                        ccontext.fillRect(brick.x, brick.y, brick.width, brick.height);
+
+                        ccontext.strokeStyle = "black";
+                        ccontext.lineWidth = 2;
+                        ccontext.strokeRect(brick.x, brick.y, brick.width, brick.height);
+                    }
+                }
+            }
 
 
 
