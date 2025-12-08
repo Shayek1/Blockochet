@@ -1,6 +1,6 @@
 
 export const brickRows = 5;
-export const brickCols = 8;
+export const brickCols = 9;
 
 export const brickWidth = 50;
 export const brickHeight = 15;
