@@ -18,8 +18,8 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
     const [paddle, setPaddle] = useState({
         height: 20,
         width: 100,
-        x: 150,
-        y:450,
+        x: 250,
+        y:550,
         color: "purple"
     });
 
@@ -173,8 +173,17 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         []);
 
     return(
-        <div style={{position: "relative"}}>
-        <canvas ref={canvasReference} height={600} width={600}/>
+        <div     style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+        }}>
+        <canvas  ref={canvasReference} height={600} width={600}       style={{
+            display: "block",
+            border: "2px solid white",
+        }}/>
 
             <div style={{
                 position: "absolute",
