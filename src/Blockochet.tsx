@@ -34,6 +34,8 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
     const bricksRef = useRef(brickCreation());
     const bricks = bricksRef.current;
 
+
+
     //key listeners
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -182,6 +184,28 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                 }
             }
 
+            function showGameOver(ccontext) {
+                // dark overlay
+                ccontext.fillStyle = "rgba(0, 0, 0, 0.6)";
+                ccontext.fillRect(0, 0, canvas.width, canvas.height);
+
+                // text
+                ccontext.fillStyle = "white";
+                ccontext.font = "48px Arial";
+                ccontext.textAlign = "center";
+                ccontext.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+            }
+
+
+
+            //Game Over
+            if (ball.y - ball.radius > canvas.height){
+                cancelAnimationFrame(animationFrameId);
+                showGameOver(ccontext)
+                return;
+
+
+            }
 
 
 
