@@ -161,6 +161,28 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                 }
             }
 
+            //brick collision
+            for (let row = 0; row < bricks.length; row++) {
+                for (let col = 0; col < bricks[row].length; col++) {
+
+                    const brick = bricks[row][col];
+
+                    if (brick.status === 1) {
+                        // Collision check
+                        if (
+                            ball.x + ball.radius > brick.x &&
+                            ball.x - ball.radius < brick.x + brick.width &&
+                            ball.y + ball.radius > brick.y &&
+                            ball.y - ball.radius < brick.y + brick.height
+                        ) {
+                            ball.dy *= -1;        // go in opposite direction/bounce off
+                            brick.status = 0;     // remove brick
+                        }
+                    }
+                }
+            }
+
+
 
 
 
