@@ -241,21 +241,24 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             width: "100vw",
             height: "100vh",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center"
         }}>
         <canvas  ref={canvasReference} height={600} width={600}       style={{
             display: "block",
             border: "2px solid white",
         }}/>
+
             {gameOver && (
                 <button onClick={restartGame}
                         style={{
-                            marginTop: "20px",
+                            position:"absolute",
                             padding: "12px 24px",
                             fontSize: "18px",
                             cursor: "pointer",
                             borderRadius: "8px",
+                            marginTop: "75px"
                         }}>
                     Restart
                 </button>
