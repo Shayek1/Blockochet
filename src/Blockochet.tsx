@@ -40,7 +40,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
     });
 
     const bricksRef = useRef(brickCreation());
-    const bricks = bricksRef.current;
+
 
 
 
@@ -85,6 +85,8 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         };
 
 
+
+        const bricks = bricksRef.current;
 
         //when game resets - bricks
         bricks.forEach(row =>
@@ -234,7 +236,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         loop();
         return () => cancelAnimationFrame(animationFrameId);
     },
-        [resetButton, paddle, bricks]);
+        [resetButton, paddle]);
 
     return(
         <div     style={{
