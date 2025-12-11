@@ -207,6 +207,11 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                 }
             }
 
+            //drawing the lives
+            ccontext.fillStyle = "white";
+            ccontext.font = "20px, Arial";
+            ccontext.fillText(`Lives: ${lives}`,10,20)
+
             //brick collision
             for (let row = 0; row < bricks.length; row++) {
                 for (let col = 0; col < bricks[row].length; col++) {
