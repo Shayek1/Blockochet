@@ -240,10 +240,11 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                 return;
             }
 
-            if(lives === 0){
+            if(lives <= 0){
                 cancelAnimationFrame(animationFrameId);
                 showGameOver(ccontext, canvas);
                 setGameOver(true);
+                return;
             }
 
 
