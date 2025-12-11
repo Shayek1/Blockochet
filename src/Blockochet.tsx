@@ -25,6 +25,18 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
 
  const paddleSpeed = 10;
 
+    const [lives, setLives] = useState<number>(5)
+
+    function loseLife() {
+        setLives(prev => prev - 1)
+
+        setPaddle( prev => ({
+            ...prev,
+            x: 250
+        }));
+    }
+
+
     const[gameOver, setGameOver] = useState(false);
     const[resetButton, setResetButton] = useState(0);
     function restartGame(){
@@ -217,14 +229,16 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             }
 
 
-            //Game Over
+            //Losing a life
             if (ball.y - ball.radius > canvas.height){
+                loseLife()
+                return;
+            }
+
+            if(lives === 0){
                 cancelAnimationFrame(animationFrameId);
                 showGameOver(ccontext, canvas);
                 setGameOver(true);
-                return;
-
-
             }
 
 
@@ -236,7 +250,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         loop();
         return () => cancelAnimationFrame(animationFrameId);
     },
-        [resetButton, paddle]);
+        [resetButton, paddle,lives]);
 
     return(
         <div     style={{
