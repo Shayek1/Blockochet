@@ -42,6 +42,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
     function restartGame(){
         setGameOver(false);
         setResetButton(prev => prev + 1);
+        setLives(5);
 
     }
 
