@@ -1,12 +1,4 @@
 import {useRef, useEffect, useState} from "react";
-/* import {brickHeight,
-    brickWidth,
-    brickOffsetLeft,
-    brickOffsetTop,
-    brickPadding,
-    brickRows,
-    brickCols
-} from "./game/brickConfig.ts"; */
 import {brickCreation} from "./game/brickCreation.ts";
 
 
