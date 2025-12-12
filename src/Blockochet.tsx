@@ -15,7 +15,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
 
 
     //creating the paddle
-    const paddle = useRef({
+    const [paddle, setPaddle] = useState({
         height: 20,
         width: 100,
         x: 250,
@@ -23,13 +23,26 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         color: "purple"
     });
 
-    const paddleSpeed = 10;
+ const paddleSpeed = 10;
+
+    const [lives, setLives] = useState<number>(5)
+
+    function loseLife() {
+        setLives(prev => prev - 1)
+
+        setPaddle( prev => ({
+            ...prev,
+            x: 250
+        }));
+    }
+
 
     const[gameOver, setGameOver] = useState(false);
     const[resetButton, setResetButton] = useState(0);
     function restartGame(){
         setGameOver(false);
         setResetButton(prev => prev + 1);
+        setLives(5);
 
     }
 
@@ -120,17 +133,17 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             //PADDLE
             //movement
             if (controls.current.left){
-                paddle.current.x -= paddleSpeed
+                paddle.x -= paddleSpeed
             }
 
             if (controls.current.right){
-                paddle.current.x += paddleSpeed
+                paddle.x += paddleSpeed
             }
 
             //keeping the paddle within the canvas
-            if (paddle.current.x < 0) paddle.current.x = 0;
-            if (paddle.current.x + paddle.current.width > canvas.width){
-                paddle.current.x = canvas.width - paddle.current.width
+            if (paddle.x < 0) paddle.x = 0;
+            if (paddle.x + paddle.width > canvas.width){
+                paddle.x = canvas.width - paddle.width
             }
 
             //wall collision
@@ -146,17 +159,17 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
 
             //PADDLE COLLISION
             const ballBottom = ball.y + ball.radius;
-            const paddleTop = paddle.current.y;
+            const paddleTop = paddle.y;
 
             //checking for collision
             if (ballBottom >= paddleTop){
                 if (
-                    ball.x + ball.radius >= paddle.current.x &&
-                    ball.x - ball.radius <= paddle.current.x + paddle.current.width
+                    ball.x + ball.radius >= paddle.x &&
+                    ball.x - ball.radius <= paddle.x + paddle.width
                 ){
                     ball.dy = -Math.abs(ball.dy);
 
-                    const hitPoint = ball.x - (paddle.current.x + paddle.current.width / 2);
+                    const hitPoint = ball.x - (paddle.x + paddle.width / 2);
                     ball.dx = hitPoint * 0.05;
                 }
             }
@@ -172,12 +185,12 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             ccontext.lineWidth = 2;
 
             //drawing the paddle
-            ccontext.fillStyle = paddle.current.color;
-            ccontext.fillRect(paddle.current.x, paddle.current.y, paddle.current.width, paddle.current.height);
+            ccontext.fillStyle = paddle.color;
+            ccontext.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
 
             ccontext.strokeStyle = "black";
             ccontext.lineWidth = 2;
-            ccontext.strokeRect(paddle.current.x, paddle.current.y, paddle.current.width, paddle.current.height)
+            ccontext.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height)
 
             //drawing the bricks
             for (let row = 0; row < bricks.length; row++){
@@ -194,6 +207,8 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                     }
                 }
             }
+
+            //drawing the lives
 
             //brick collision
             for (let row = 0; row < bricks.length; row++) {
@@ -217,14 +232,17 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             }
 
 
-            //Game Over
+            //Losing a life
             if (ball.y - ball.radius > canvas.height){
+                loseLife()
+                return;
+            }
+
+            if(lives <= 0){
                 cancelAnimationFrame(animationFrameId);
                 showGameOver(ccontext, canvas);
                 setGameOver(true);
                 return;
-
-
             }
 
 
@@ -236,9 +254,10 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         loop();
         return () => cancelAnimationFrame(animationFrameId);
     },
-        [resetButton, paddle]);
+        [resetButton, paddle,lives]);
 
     return(
+        <div>
         <div     style={{
             width: "100vw",
             height: "100vh",
@@ -247,7 +266,16 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             justifyContent: "center",
             alignItems: "center"
         }}>
-        <canvas  ref={canvasReference} height={600} width={600}       style={{
+            <div style={{
+                position: "absolute",
+                marginRight: "555px",
+                marginBottom: "625px"
+            }}>
+                Lives: {lives}
+            </div>
+
+        <canvas  ref={canvasReference} height={600} width={600}
+                 style={{
             display: "block",
             border: "2px solid white",
         }}/>
@@ -303,8 +331,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                     ➡
                 </button>
             </div>
-
-
+        </div>
         </div>
     );
 }
