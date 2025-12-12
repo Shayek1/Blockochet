@@ -258,13 +258,6 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
 
     return(
         <div>
-            <div style={{
-                position: "absolute",
-                marginTop: "77px",
-                marginLeft: "80px"
-            }}>
-                Lives: {lives}
-            </div>
         <div     style={{
             width: "100vw",
             height: "100vh",
@@ -273,7 +266,16 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             justifyContent: "center",
             alignItems: "center"
         }}>
-        <canvas  ref={canvasReference} height={600} width={600}       style={{
+            <div style={{
+                position: "absolute",
+                marginRight: "555px",
+                marginBottom: "625px"
+            }}>
+                Lives: {lives}
+            </div>
+
+        <canvas  ref={canvasReference} height={600} width={600}
+                 style={{
             display: "block",
             border: "2px solid white",
         }}/>
