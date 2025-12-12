@@ -209,11 +209,6 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             }
 
             //drawing the lives
-            ccontext.fillStyle = "white";
-            ccontext.font = "20px, Arial";
-            if(lives > 0) {
-                ccontext.fillText(`Lives: ${lives}`, 10, 20)
-            }
 
             //brick collision
             for (let row = 0; row < bricks.length; row++) {
@@ -262,6 +257,14 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
         [resetButton, paddle,lives]);
 
     return(
+        <div>
+            <div style={{
+                position: "absolute",
+                marginTop: "77px",
+                marginLeft: "80px"
+            }}>
+                Lives: {lives}
+            </div>
         <div     style={{
             width: "100vw",
             height: "100vh",
@@ -326,8 +329,7 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
                     ➡
                 </button>
             </div>
-
-
+        </div>
         </div>
     );
 }
