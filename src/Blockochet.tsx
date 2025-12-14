@@ -48,7 +48,6 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
 
 
 
-
     //key listeners
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -258,6 +257,21 @@ const canvasReference = useRef<HTMLCanvasElement | null>(null)
             justifyContent: "center",
             alignItems: "center"
         }}>
+            <div style={{
+                position: "absolute",
+                display: "flex",
+                marginLeft: "520px",
+                marginBottom: "660px"
+            }}>
+                <button style={{
+                    width: "75px",
+                    height: "45px",
+                }} >
+                   ⏸
+                </button>
+            </div>
+
+
             <div style={{
                 position: "absolute",
                 marginRight: "555px",
